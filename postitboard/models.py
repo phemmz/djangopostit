@@ -4,7 +4,7 @@ from django.contrib.auth.models import User
 # Create your models here.
 # Group model containing groupname and description
 class Group(models.Model):
-    groupname = models.CharField(max_length=50)
+    groupname = models.CharField(max_length=50, unique=True)
     description = models.TextField(null=True, blank=True)
     users = models.ManyToManyField(User)
 
