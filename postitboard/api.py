@@ -1,15 +1,19 @@
+from rest_framework import generics
 from rest_framework.viewsets import ModelViewSet
 
 from .serializers import GroupSerializer, MessageSerializer
 from .models import Group, Message
 
-class GroupViewSet(ModelViewSet):
+class GroupViewSet(generics.ListCreateAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
-class MessageViewSet(ModelViewSet):
-    queryset = Message.objects.all()
-    serializer_class = MessageSerializer
+    def perform_create(self, serializer):
+        """Save the post data when creating a new bucketlist."""
+        serializer.save()
 
-    def get_queryset(self):
-        return Message.objects.filter(group = self.request.query_params.get('group'))
+class DetailsView(generics.RetrieveUpdateDestroyAPIView):
+    """This class handles the http GET, PUT and DELETE requests."""
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+

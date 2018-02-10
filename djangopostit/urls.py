@@ -23,3 +23,4 @@ urlpatterns = [
     url(r'^$', TemplateView.as_view(template_name='view1.html')),
     url(r'^api/v2/', include('postitboard.urls')),
 ]
+/
